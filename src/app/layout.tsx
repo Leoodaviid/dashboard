@@ -2,8 +2,9 @@
 import { useMemo } from "react";
 import { ThemeProvider, CssBaseline, Box } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
-import { themeSettings } from "./theme";
+import { themeSettings } from "./mui/theme";
 import { Inter } from "next/font/google";
+import NavBar from "./components/NavBar";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,6 +21,7 @@ export default function RootLayout({
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Box width="100%" height="100%" padding="1rem 2rem 4rem 2rem">
+            <NavBar />
             {children}
           </Box>
         </ThemeProvider>
