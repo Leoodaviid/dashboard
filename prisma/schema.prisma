@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Kpi {
+  id                 Int                  @id @default(autoincrement())
+  totalProfit        Decimal              @db.Decimal(10, 2)
+  totalRevenue       Decimal              @db.Decimal(10, 2)
+  totalExpenses      Decimal              @db.Decimal(10, 2)
+  monthlyData        MonthlyData[]
+  dailyData          DailyData[]
+  expensesByCategory ExpensesByCategory[]
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+}
+
+model MonthlyData {
+  id                     Int      @id @default(autoincrement())
+  month                  String
+  revenue                Decimal  @db.Decimal(10, 2)
+  expenses               Decimal  @db.Decimal(10, 2)
+  operationalExpenses    Decimal  @db.Decimal(10, 2)
+  nonOperationalExpenses Decimal  @db.Decimal(10, 2)
+  kpi                    Kpi?     @relation(fields: [kpiId], references: [id])
+  kpiId                  Int
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+}
+
+model DailyData {
+  id        Int      @id @default(autoincrement())
+  date      String
+  revenue   Decimal  @db.Decimal(10, 2)
+  expenses  Decimal  @db.Decimal(10, 2)
+  kpi       Kpi?     @relation(fields: [kpiId], references: [id])
+  kpiId     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ExpensesByCategory {
+  id        Int      @id @default(autoincrement())
+  salaries  Decimal  @db.Decimal(10, 2)
+  supplies  Decimal  @db.Decimal(10, 2)
+  services  Decimal  @db.Decimal(10, 2)
+  kpi       Kpi?     @relation(fields: [kpiId], references: [id])
+  kpiId     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
