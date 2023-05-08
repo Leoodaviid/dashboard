@@ -5,7 +5,6 @@ import BoxHeader from "../BoxHeader";
 import {
   ResponsiveContainer,
   AreaChart,
-  CartesianGrid,
   XAxis,
   YAxis,
   Tooltip,
@@ -13,12 +12,9 @@ import {
 } from "recharts";
 import { useTheme } from "@mui/material";
 
-type Props = {};
-
-const RevenueAndExpenses = (props: Props) => {
+const RevenueAndExpenses = () => {
   const { palette } = useTheme();
   const { data } = useGetKpisQuery();
-  console.log(data);
   const revenueExpenses = useMemo(() => {
     return (
       data &&
@@ -46,7 +42,6 @@ const RevenueAndExpenses = (props: Props) => {
             data={revenueExpenses}
             margin={{ top: 15, right: 25, left: -10, bottom: 60 }}
           >
-            {/* <CartesianGrid strokeDasharray="3 3" /> */}
             <defs>
               <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
                 <stop
