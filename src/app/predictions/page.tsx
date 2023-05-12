@@ -1,6 +1,6 @@
 "use client";
-import DashboardBox from "../components/DashboardBox";
-import FlexBetween from "../components/FlexBetween";
+import DashboardBox from "@/components/DashboardBox";
+import FlexBetween from "@/components/FlexBetween";
 import React, { useMemo, useState } from "react";
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import {
@@ -14,7 +14,7 @@ import {
   Tooltip,
   Label,
 } from "recharts";
-import { useGetKpisQuery } from "../service/api";
+import { useGetKpisQuery } from "@/service/api";
 import regression, { DataPoint } from "regression";
 
 export default function Predictions() {
