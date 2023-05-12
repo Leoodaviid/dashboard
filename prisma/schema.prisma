@@ -56,3 +56,20 @@ model ExpensesByCategory {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Product {
+  id          String         @id @default(uuid())
+  price       Decimal        @db.Decimal(10, 2)
+  expense     Decimal        @db.Decimal(10, 2)
+  transaction Transactions[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model Transactions {
+  id        Int      @id @default(autoincrement())
+  amount    Decimal  @db.Decimal(10, 2)
+  buyer     String
+  Products  Product? @relation(fields: [productId], references: [id])
+  productId String?
+}

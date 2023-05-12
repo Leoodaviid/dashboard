@@ -466,48 +466,632 @@ const kpisData = [
   },
 ];
 
-async function seed() {
-  for (const kpiData of kpisData) {
-    const monthlyData = kpiData.monthlyData.map((data) => ({
-      month: data.month,
-      revenue: data.revenue,
-      expenses: data.expenses,
-      operationalExpenses: data.operationalExpenses,
-      nonOperationalExpenses: data.nonOperationalExpenses,
-    }));
+const products = [
+  {
+    price: 73.28,
+    expense: 7.85,
+  },
+  {
+    price: 130.65,
+    expense: 7.95,
+  },
+  {
+    price: 198.54,
+    expense: 9.5,
+  },
+  {
+    price: 147.32,
+    expense: 5.86,
+  },
+  {
+    price: 187.22,
+    expense: 5.82,
+  },
+  {
+    price: 162.43,
+    expense: 3.28,
+  },
+  {
+    price: 30.09,
+    expense: 8.55,
+  },
+  {
+    price: 31.07,
+    expense: 4.98,
+  },
+  {
+    price: 12.21,
+    expense: 6.82,
+  },
+  {
+    price: 76.31,
+    expense: 3.84,
+  },
+  {
+    price: 169.87,
+    expense: 8.35,
+  },
+  {
+    price: 187.36,
+    expense: 8.12,
+  },
+  {
+    price: 67.29,
+    expense: 6.32,
+  },
+  {
+    price: 85.35,
+    expense: 9.33,
+  },
+  {
+    price: 35.75,
+    expense: 9.93,
+  },
+  {
+    price: 59.8,
+    expense: 1.51,
+  },
+  {
+    price: 86.45,
+    expense: 3.55,
+  },
+  {
+    price: 142.21,
+    expense: 1.85,
+  },
+  {
+    price: 10.01,
+    expense: 5.61,
+  },
+  {
+    price: 112.78,
+    expense: 6.74,
+  },
+  {
+    price: 156.34,
+    expense: 6.26,
+  },
+  {
+    price: 119.34,
+    expense: 8.62,
+  },
+  {
+    price: 87.49,
+    expense: 8.74,
+  },
+  {
+    price: 34.52,
+    expense: 2.31,
+  },
+  {
+    price: 90.83,
+    expense: 7.83,
+  },
+  {
+    price: 181.98,
+    expense: 3.02,
+  },
+  {
+    price: 62.17,
+    expense: 9.52,
+  },
+  {
+    price: 83.76,
+    expense: 1.09,
+  },
+  {
+    price: 62.47,
+    expense: 2.38,
+  },
+  {
+    price: 54.68,
+    expense: 5.12,
+  },
+  {
+    price: 91.72,
+    expense: 4.73,
+  },
+  {
+    price: 159.65,
+    expense: 3.79,
+  },
+  {
+    price: 190.89,
+    expense: 5.24,
+  },
+  {
+    price: 155.13,
+    expense: 1.68,
+  },
+  {
+    price: 43.82,
+    expense: 7.85,
+  },
+  {
+    price: 58.31,
+    expense: 9.94,
+  },
+  {
+    price: 138.47,
+    expense: 6.4,
+  },
+  {
+    price: 10.4,
+    expense: 3.2,
+  },
+  {
+    price: 22.48,
+    expense: 5.36,
+  },
+  {
+    price: 92.16,
+    expense: 9.12,
+  },
+  {
+    price: 140.77,
+    expense: 9.02,
+  },
+  {
+    price: 100.62,
+    expense: 6.55,
+  },
+  {
+    price: 69.13,
+    expense: 6.26,
+  },
+  {
+    price: 124.82,
+    expense: 8.49,
+  },
+  {
+    price: 196.68,
+    expense: 3.32,
+  },
+  {
+    price: 172.48,
+    expense: 2.38,
+  },
+  {
+    price: 112.84,
+    expense: 4.34,
+  },
+  {
+    price: 37.97,
+    expense: 5.76,
+  },
+  {
+    price: 123.72,
+    expense: 2.85,
+  },
+  {
+    price: 15.02,
+    expense: 2.0,
+  },
+  {
+    price: 19.69,
+    expense: 2.65,
+  },
+  {
+    price: 30.8,
+    expense: 5.02,
+  },
+  {
+    price: 90.56,
+    expense: 2.93,
+  },
+  {
+    price: 30.37,
+    expense: 8.63,
+  },
+  {
+    price: 149.26,
+    expense: 1.33,
+  },
+  {
+    price: 167.45,
+    expense: 9.3,
+  },
+  {
+    price: 50.36,
+    expense: 4.38,
+  },
+  {
+    price: 151.61,
+    expense: 2.27,
+  },
+  {
+    price: 191.46,
+    expense: 5.6,
+  },
+  {
+    price: 131.96,
+    expense: 8.8,
+  },
+  {
+    price: 164.96,
+    expense: 4.16,
+  },
+  {
+    price: 13.57,
+    expense: 5.18,
+  },
+  {
+    price: 177.57,
+    expense: 7.04,
+  },
+  {
+    price: 172.71,
+    expense: 5.73,
+  },
+  {
+    price: 17.48,
+    expense: 4.81,
+  },
+  {
+    price: 54.13,
+    expense: 7.44,
+  },
+  {
+    price: 155.93,
+    expense: 9.1,
+  },
+  {
+    price: 13.34,
+    expense: 6.17,
+  },
+  {
+    price: 75.89,
+    expense: 1.11,
+  },
+  {
+    price: 153.85,
+    expense: 6.99,
+  },
+  {
+    price: 187.83,
+    expense: 6.66,
+  },
+  {
+    price: 119.33,
+    expense: 1.4,
+  },
+  {
+    price: 54.0,
+    expense: 5.61,
+  },
+  {
+    price: 144.81,
+    expense: 7.45,
+  },
+  {
+    price: 37.04,
+    expense: 5.86,
+  },
+  {
+    price: 161.03,
+    expense: 4.48,
+  },
+  {
+    price: 73.46,
+    expense: 7.95,
+  },
+  {
+    price: 120.96,
+    expense: 8.9,
+  },
+  {
+    price: 34.46,
+    expense: 9.25,
+  },
+  {
+    price: 172.27,
+    expense: 3.92,
+  },
+  {
+    price: 20.54,
+    expense: 8.12,
+  },
+  {
+    price: 80.31,
+    expense: 7.04,
+  },
+  {
+    price: 77.67,
+    expense: 4.14,
+  },
+  {
+    price: 47.25,
+    expense: 5.53,
+  },
+  {
+    price: 181.02,
+    expense: 7.57,
+  },
+  {
+    price: 67.2,
+    expense: 8.37,
+  },
+  {
+    price: 58.15,
+    expense: 3.19,
+  },
+  {
+    price: 145.65,
+    expense: 3.83,
+  },
+  {
+    price: 134.08,
+    expense: 7.03,
+  },
+  {
+    price: 33.79,
+    expense: 4.54,
+  },
+  {
+    price: 182.1,
+    expense: 9.54,
+  },
+  {
+    price: 129.93,
+    expense: 1.15,
+  },
+  {
+    price: 148.47,
+    expense: 1.63,
+  },
+  {
+    price: 13.52,
+    expense: 9.76,
+  },
+  {
+    price: 120.88,
+    expense: 5.94,
+  },
+  {
+    price: 153.54,
+    expense: 9.63,
+  },
+  {
+    price: 35.74,
+    expense: 8.71,
+  },
+  {
+    price: 120.21,
+    expense: 5.0,
+  },
+  {
+    price: 180.06,
+    expense: 6.39,
+  },
+  {
+    price: 92.7,
+    expense: 5.53,
+  },
+  {
+    price: 35.39,
+    expense: 2.89,
+  },
+  {
+    price: 159.59,
+    expense: 3.54,
+  },
+  {
+    price: 116.66,
+    expense: 5.6,
+  },
+  {
+    price: 19.66,
+    expense: 6.43,
+  },
+  {
+    price: 99.78,
+    expense: 7.03,
+  },
+  {
+    price: 145.56,
+    expense: 9.4,
+  },
+  {
+    price: 133.65,
+    expense: 1.03,
+  },
+  {
+    price: 174.42,
+    expense: 5.3,
+  },
+  {
+    price: 77.55,
+    expense: 1.01,
+  },
+  {
+    price: 103.01,
+    expense: 6.81,
+  },
+  {
+    price: 88.02,
+    expense: 8.0,
+  },
+  {
+    price: 119.84,
+    expense: 8.95,
+  },
+  {
+    price: 18.02,
+    expense: 5.48,
+  },
+  {
+    price: 121.59,
+    expense: 7.27,
+  },
+  {
+    price: 42.71,
+    expense: 7.26,
+  },
+  {
+    price: 106.89,
+    expense: 2.49,
+  },
+  {
+    price: 162.96,
+    expense: 2.18,
+  },
+  {
+    price: 102.9,
+    expense: 1.4,
+  },
+  {
+    price: 21.98,
+    expense: 7.86,
+  },
+];
 
-    const dailyData = kpiData.dailyData.map((data) => ({
-      date: data.date,
-      revenue: data.revenue,
-      expenses: data.expenses,
-    }));
+const transactions = [
+  {
+    amount: 156.67,
+    buyer: "Jordain Gilberthorpe",
+    productId: "0431b81e-9d03-4075-bfe5-c001ffb5b47b",
+  },
+  {
+    amount: 174.95,
+    buyer: "Thelma Christoforou",
+    productId: "04d2904f-24c6-4072-b863-71a257f4c56a",
+  },
+  {
+    amount: 245.32,
+    buyer: "Mattie Iuorio",
+    productId: "07855a5e-805d-4593-bbe1-6e48f522e331",
+  },
+  {
+    amount: 133.57,
+    buyer: "Ancell Valerio",
+    productId: "07d0bad4-a088-40be-9dfa-01ceb76c1e9e",
+  },
+  {
+    amount: 122.49,
+    buyer: "Ollie Bolderstone",
+    productId: "0caf8888-6655-45b3-8bd4-c2a50efb7ca8",
+  },
+  {
+    amount: 270.23,
+    buyer: "Audrey Zimmermeister",
+    productId: "0caf8888-6655-45b3-8bd4-c2a50efb7ca8",
+  },
+  {
+    amount: 173.38,
+    buyer: "Sibby Iacovolo",
+    productId: "0d657b7f-015f-435b-bc2d-d9712c2e3384",
+  },
+  {
+    amount: 283.65,
+    buyer: "Perry Scarrisbrick",
+    productId: "1316e4e3-4062-4d55-b535-783cc026b7de",
+  },
+  {
+    amount: 187.8,
+    buyer: "Danika Dearth",
+    productId: "15b3f260-0abf-4458-bc82-1fb460a04a79",
+  },
+  {
+    amount: 233.9,
+    buyer: "Jeddy Juschka",
+    productId: "163a6697-1dcd-4975-a17e-63085ecf38ab",
+  },
+  {
+    amount: 217.32,
+    buyer: "Shelley Ganiford",
+    productId: "564ff90c-1d14-460c-863b-1f75d1d2a4f1",
+  },
+  {
+    amount: 272.71,
+    buyer: "Inigo Paddeley",
+    productId: "5b2a6908-8309-4595-a64e-18ca958298fa",
+  },
+  {
+    amount: 297.98,
+    buyer: "Mallorie Handrek",
+    productId: "50972379-e72a-45d1-b7d5-a038e5e92d27",
+  },
+  {
+    amount: 145.37,
+    buyer: "Isadora Hollingsby",
+    productId: "615c09f0-0b17-499f-90df-b5ee6c7c6abe",
+  },
+  {
+    amount: 297.67,
+    buyer: "Claudetta McNally",
+    productId: "c86ac832-13e2-4c60-9dd4-729b85cd122b",
+  },
+  {
+    amount: 221.5,
+    buyer: "Garek Van Halen",
+    productId: "6342b8df-7d9c-4ce0-a31a-bbac78a1c8d5",
+  },
+  {
+    amount: 296.28,
+    buyer: "Rozanna Lochead",
+    productId: "6ccd19cc-8325-4fc0-82ba-1554dd9c9b70",
+  },
+  {
+    amount: 270.66,
+    buyer: "Valerie Dooly",
+    productId: "7ddbc24a-1745-4875-aaf3-826d680ab82f",
+  },
+  {
+    amount: 70.39,
+    buyer: "Ronny Dishman",
+    productId: "7ddbc24a-1745-4875-aaf3-826d680ab82f",
+  },
+  {
+    amount: 193.31,
+    buyer: "Carita Tampion",
+    productId: "84060a7a-6985-41c4-844e-643376194ed8",
+  },
+  {
+    amount: 123.95,
+    buyer: "Guido Valentine",
+    productId: "87b7294b-caf8-4b77-b7c8-d993112c21a2",
+  },
+  {
+    amount: 49.37,
+    buyer: "Kimberley Glassopp",
+    productId: "9938f00d-42ea-41b5-bf89-8768595c19d9",
+  },
+  {
+    amount: 89.87,
+    buyer: "Cloris Vasyushkhin",
+    productId: "87ef068c-edf9-4fd0-a779-15300f409e3e",
+  },
+  {
+    amount: 72.12,
+    buyer: "Chevy Richardet",
+    productId: "a863492f-74a2-4102-ae4a-37ff5eb4bfff",
+  },
+  {
+    amount: 271.82,
+    buyer: "Ailis Bum",
+    productId: "c86ac832-13e2-4c60-9dd4-729b85cd122b",
+  },
+  {
+    amount: 282.33,
+    buyer: "Florance Flook",
+    productId: "cf4c5a59-7dbd-4e17-99cb-2e5f93e1bd86",
+  },
+  {
+    amount: 177.35,
+    buyer: "Agna Tresvina",
+    productId: "cf4c5a59-7dbd-4e17-99cb-2e5f93e1bd86",
+  },
+];
 
-    const expensesByCategory = {
-      salaries: kpiData.expensesByCategory.salaries,
-      supplies: kpiData.expensesByCategory.supplies,
-      services: kpiData.expensesByCategory.services,
-    };
-
-    await prisma.kpi.create({
-      data: {
-        totalProfit: kpiData.totalProfit,
-        totalRevenue: kpiData.totalRevenue,
-        totalExpenses: kpiData.totalExpenses,
-        monthlyData: {
-          create: monthlyData,
-        },
-        dailyData: {
-          create: dailyData,
-        },
-        expensesByCategory: {
-          create: expensesByCategory,
-        },
-      },
-    });
-  }
+/************************************* Products ****************************************/
+async function main() {
+  // Cria os produtos
+  const createdProducts = await prisma.transactions.createMany({
+    data: transactions,
+  });
 }
 
-seed()
+main()
   .catch((error) => {
     console.error(error);
     process.exit(1);
@@ -515,3 +1099,54 @@ seed()
   .finally(async () => {
     await prisma.$disconnect();
   });
+
+/***************************************** KPIS ******************************************/
+// async function seed() {
+//   for (const kpiData of kpisData) {
+//     const monthlyData = kpiData.monthlyData.map((data) => ({
+//       month: data.month,
+//       revenue: data.revenue,
+//       expenses: data.expenses,
+//       operationalExpenses: data.operationalExpenses,
+//       nonOperationalExpenses: data.nonOperationalExpenses,
+//     }));
+
+//     const dailyData = kpiData.dailyData.map((data) => ({
+//       date: data.date,
+//       revenue: data.revenue,
+//       expenses: data.expenses,
+//     }));
+
+//     const expensesByCategory = {
+//       salaries: kpiData.expensesByCategory.salaries,
+//       supplies: kpiData.expensesByCategory.supplies,
+//       services: kpiData.expensesByCategory.services,
+//     };
+
+//     await prisma.kpi.create({
+//       data: {
+//         totalProfit: kpiData.totalProfit,
+//         totalRevenue: kpiData.totalRevenue,
+//         totalExpenses: kpiData.totalExpenses,
+//         monthlyData: {
+//           create: monthlyData,
+//         },
+//         dailyData: {
+//           create: dailyData,
+//         },
+//         expensesByCategory: {
+//           create: expensesByCategory,
+//         },
+//       },
+//     });
+//   }
+// }
+
+// seed()
+//   .catch((error) => {
+//     console.error(error);
+//     process.exit(1);
+//   })
+//   .finally(async () => {
+//     await prisma.$disconnect();
+//   });

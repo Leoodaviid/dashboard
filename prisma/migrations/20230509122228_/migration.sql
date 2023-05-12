@@ -51,6 +51,27 @@ CREATE TABLE "ExpensesByCategory" (
     CONSTRAINT "ExpensesByCategory_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "Product" (
+    "id" TEXT NOT NULL,
+    "price" DECIMAL(10,2) NOT NULL,
+    "expense" DECIMAL(10,2) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Transactions" (
+    "id" SERIAL NOT NULL,
+    "amount" DECIMAL(10,2) NOT NULL,
+    "buyer" TEXT NOT NULL,
+    "productId" TEXT,
+
+    CONSTRAINT "Transactions_pkey" PRIMARY KEY ("id")
+);
+
 -- AddForeignKey
 ALTER TABLE "MonthlyData" ADD CONSTRAINT "MonthlyData_kpiId_fkey" FOREIGN KEY ("kpiId") REFERENCES "Kpi"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -59,3 +80,6 @@ ALTER TABLE "DailyData" ADD CONSTRAINT "DailyData_kpiId_fkey" FOREIGN KEY ("kpiI
 
 -- AddForeignKey
 ALTER TABLE "ExpensesByCategory" ADD CONSTRAINT "ExpensesByCategory_kpiId_fkey" FOREIGN KEY ("kpiId") REFERENCES "Kpi"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Transactions" ADD CONSTRAINT "Transactions_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE SET NULL ON UPDATE CASCADE;
