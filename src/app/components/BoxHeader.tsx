@@ -1,3 +1,4 @@
+// "use client";
 import React, { ReactNode } from "react";
 import FlexBetween from "./FlexBetween";
 import { Box, Typography, useTheme } from "@mui/material";

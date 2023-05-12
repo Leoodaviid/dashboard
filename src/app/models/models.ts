@@ -3,6 +3,7 @@ export interface ExpensesByCategory {
   supplies: number;
   services: number;
 }
+[];
 
 export interface Month {
   id: number;
@@ -28,4 +29,25 @@ export interface GetKpisResponse {
   expensesByCategory: ExpensesByCategory;
   monthlyData: Array<Month>;
   dailyData: Array<Day>;
+}
+
+export interface Transaction {
+  id: number;
+  amount: number;
+  buyer: string;
+  productId: string;
+}
+
+export interface GetProductResponse {
+  id: string;
+  price: number;
+  expense: number;
+  transaction: Array<Transaction>;
+}
+
+export interface GetTransactionsResponse {
+  id: number;
+  amount: number;
+  buyer: string;
+  ProductId: string;
 }

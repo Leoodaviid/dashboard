@@ -1,3 +1,4 @@
+// "use client";
 import React, { useMemo } from "react";
 import DashboardBox from "../DashboardBox";
 import {
@@ -39,6 +40,8 @@ const ProfitAndRevenue = () => {
         />
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
+            width={500}
+            height={400}
             data={revenueProfit}
             margin={{ top: 20, right: 0, left: -10, bottom: 55 }}
           >

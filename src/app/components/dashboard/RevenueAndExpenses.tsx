@@ -1,3 +1,4 @@
+// "use client";
 import React, { useMemo } from "react";
 import DashboardBox from "../DashboardBox";
 import { useGetKpisQuery } from "../../service/api";
