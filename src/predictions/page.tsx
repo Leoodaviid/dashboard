@@ -45,8 +45,6 @@ export default function Predictions() {
     });
   }, [data]);
 
-  console.log("formattedData", formattedData);
-
   return (
     <DashboardBox width="100%" height="100%" p="1rem" overflow="hidden">
       <FlexBetween m="1rem 2.5rem" gap="1rem">

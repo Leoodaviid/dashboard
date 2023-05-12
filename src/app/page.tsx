@@ -11,7 +11,7 @@ import {
   RecentOrders,
   ExpenseBreakdownByCategory,
   OverallSummary,
-} from "./components/dashboard/index";
+} from "@/components/dashboard/index";
 
 const gridTemplateLargeScreens = `
 "a b c"

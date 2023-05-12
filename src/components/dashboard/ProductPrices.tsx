@@ -13,7 +13,7 @@ import {
   ZAxis,
 } from "recharts";
 import BoxHeader from "../BoxHeader";
-import { useGetProductsQuery } from "@/app/service/api";
+import { useGetProductsQuery } from "@/service/api";
 
 const ProductPrices = () => {
   const { palette } = useTheme();

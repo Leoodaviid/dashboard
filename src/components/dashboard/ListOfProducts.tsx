@@ -3,48 +3,43 @@ import React from "react";
 import DashboardBox from "../DashboardBox";
 import BoxHeader from "../BoxHeader";
 import { DataGrid, GridCellParams } from "@mui/x-data-grid";
-import { useGetTransactionsQuery } from "@/app/service/api";
+import { useGetProductsQuery } from "@/service/api";
 import { Box, useTheme } from "@mui/material";
 
-const transactionColumns = [
-  {
-    field: "id",
-    headerName: "id",
-    flex: 0.1,
-  },
-  {
-    field: "buyer",
-    headerName: "Buyer",
-    flex: 0.3,
-  },
-  {
-    field: "amount",
-    headerName: "Amount",
-    flex: 0.3,
-    renderCell: (params: GridCellParams) => `$${params.value}`,
-  },
-  {
-    field: "productId",
-    headerName: "productId",
-    flex: 0.3,
-    renderCell: (params: GridCellParams) => `${params.value}`,
-  },
-];
-
-const RecentOrders = () => {
+const ListOfProducts = () => {
   const { palette } = useTheme();
-  const { data } = useGetTransactionsQuery();
+  const { data } = useGetProductsQuery();
+
+  const productColumns = [
+    {
+      field: "id",
+      headerName: "id",
+      flex: 1,
+    },
+    {
+      field: "expense",
+      headerName: "Expense",
+      flex: 0.5,
+      renderCell: (params: GridCellParams) => `$${params.value}`,
+    },
+    {
+      field: "price",
+      headerName: "Price",
+      flex: 0.5,
+      renderCell: (params: GridCellParams) => `$${params.value}`,
+    },
+  ];
   return (
     <>
-      <DashboardBox gridArea="h">
+      <DashboardBox gridArea="g">
         <BoxHeader
-          title="Recent Orders"
-          sideText={`${data?.length} latest transactions`}
+          title="List of Products"
+          sideText={`${data?.length} products`}
         />
         <Box
-          mt="1rem"
+          mt="0.5rem"
           p="0 0.5rem"
-          height="80%"
+          height="75%"
           sx={{
             "& .MuiDataGrid-root": {
               color: palette.grey[300],
@@ -65,7 +60,7 @@ const RecentOrders = () => {
             columnHeaderHeight={25}
             rowHeight={35}
             hideFooter={true}
-            columns={transactionColumns}
+            columns={productColumns}
             rows={data || []}
           />
         </Box>
@@ -74,4 +69,4 @@ const RecentOrders = () => {
   );
 };
 
-export default RecentOrders;
+export default ListOfProducts;

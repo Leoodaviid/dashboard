@@ -5,8 +5,8 @@ import BoxHeader from "../BoxHeader";
 import FlexBetween from "../FlexBetween";
 import { PieChart, Pie, Cell } from "recharts";
 import { Box, Typography, useTheme } from "@mui/material";
-import { useGetKpisQuery } from "@/app/service/api";
-import { ExpensesByCategory } from "@/app/models/models";
+import { useGetKpisQuery } from "@/service/api";
+import { ExpensesByCategory } from "@/models/models";
 
 const ExpenseBreakdownByCategory = () => {
   const { palette } = useTheme();
@@ -19,10 +19,6 @@ const ExpenseBreakdownByCategory = () => {
       const dataExpenses = kpiData[0]
         .expensesByCategory as unknown as Array<ExpensesByCategory>;
 
-      console.log("dataExpenses", dataExpenses);
-      console.log("totalExpenses", totalExpenses);
-
-      // Crie um objeto para cada categoria de despesa
       const salariesData = {
         name: "Salaries",
         value: parseFloat(
@@ -59,7 +55,6 @@ const ExpenseBreakdownByCategory = () => {
       const supplies = suppliesData.value;
       const services = servicesData.value;
 
-      // Retorne um array com os dados de cada categoria
       return [
         { name: salariesData.name, value: totalExpenses - salaries },
         { name: suppliesData.name, value: totalExpenses - supplies },
@@ -69,8 +64,6 @@ const ExpenseBreakdownByCategory = () => {
     return [];
   }, [kpiData]);
 
-  console.log("pieChartData", pieChartData);
-
   return (
     <>
       <DashboardBox gridArea="i">
@@ -78,7 +71,7 @@ const ExpenseBreakdownByCategory = () => {
         <FlexBetween mt="0.5rem" gap="0.5rem" p="0 1rem" textAlign="center">
           {pieChartData?.map((data, i) => {
             const dataArray = [data];
-            console.log("dataArray", dataArray);
+
             return (
               <Box key={`${data.name}-${i}`}>
                 <PieChart width={110} height={75}>

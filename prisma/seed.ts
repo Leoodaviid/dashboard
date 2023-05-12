@@ -1,4 +1,4 @@
-import { prisma } from "../src/app/prisma/prisma";
+import { prisma } from "@/prisma/prisma";
 
 const kpisData = [
   {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import PixIcon from "@mui/icons-material/Pix";
 import { Box, Typography, useTheme } from "@mui/material";
-import FlexBetween from "../components/FlexBetween";
+import FlexBetween from "@/components/FlexBetween";
 
 const NavBar = () => {
   const { palette } = useTheme();

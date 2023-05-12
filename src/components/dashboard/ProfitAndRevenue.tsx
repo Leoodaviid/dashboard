@@ -1,46 +1,48 @@
 // "use client";
 import React, { useMemo } from "react";
 import DashboardBox from "../DashboardBox";
-import BoxHeader from "../BoxHeader";
-import { useGetKpisQuery } from "@/app/service/api";
-import { useTheme } from "@mui/material";
 import {
-  CartesianGrid,
-  Line,
-  LineChart,
   ResponsiveContainer,
-  Tooltip,
   XAxis,
   YAxis,
+  Tooltip,
+  Line,
+  CartesianGrid,
+  Legend,
+  LineChart,
 } from "recharts";
+import BoxHeader from "../BoxHeader";
+import { useTheme } from "@mui/material";
+import { useGetKpisQuery } from "@/service/api";
 
-const Operational = () => {
+const ProfitAndRevenue = () => {
   const { palette } = useTheme();
   const { data } = useGetKpisQuery();
-  const operationalExpenses = useMemo(() => {
+  const revenueProfit = useMemo(() => {
     return (
       data &&
-      data[0].monthlyData.map(
-        ({ month, operationalExpenses, nonOperationalExpenses }) => {
-          return {
-            name: month.substring(0, 3),
-            "Operational Expenses": operationalExpenses,
-            "Non Operational Expenses": nonOperationalExpenses,
-          };
-        }
-      )
+      data[0].monthlyData.map(({ month, revenue, expenses }) => {
+        return {
+          name: month.substring(0, 3),
+          revenue: revenue,
+          profit: (revenue - expenses).toFixed(2),
+        };
+      })
     );
   }, [data]);
   return (
     <>
-      <DashboardBox gridArea="d">
+      <DashboardBox gridArea="b">
         <BoxHeader
-          title="Operational vs Non-Operational Expenses"
+          title="Profit and Revenue"
+          subtitle="top line represents revenue, botton line represents expenses"
           sideText="+4%"
         />
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
-            data={operationalExpenses}
+            width={500}
+            height={400}
+            data={revenueProfit}
             margin={{ top: 20, right: 0, left: -10, bottom: 55 }}
           >
             <CartesianGrid vertical={false} stroke={palette.grey[800]} />
@@ -51,7 +53,6 @@ const Operational = () => {
             />
             <YAxis
               yAxisId="left"
-              orientation="left"
               tickLine={false}
               axisLine={false}
               style={{ fontSize: "10px" }}
@@ -64,16 +65,17 @@ const Operational = () => {
               style={{ fontSize: "10px" }}
             />
             <Tooltip />
+            <Legend height={20} wrapperStyle={{ margin: "0 0 10px 0" }} />
             <Line
               yAxisId="left"
               type="monotone"
-              dataKey="Non Operational Expenses"
+              dataKey="profit"
               stroke={palette.tertiary[500]}
             />
             <Line
               yAxisId="right"
               type="monotone"
-              dataKey="Operational Expenses"
+              dataKey="revenue"
               stroke={palette.primary.main}
             />
           </LineChart>
@@ -83,4 +85,4 @@ const Operational = () => {
   );
 };
 
-export default Operational;
+export default ProfitAndRevenue;

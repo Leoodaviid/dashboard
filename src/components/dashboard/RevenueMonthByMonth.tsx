@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import DashboardBox from "../DashboardBox";
 import BoxHeader from "../BoxHeader";
 import { useTheme } from "@mui/material";
-import { useGetKpisQuery } from "@/app/service/api";
+import { useGetKpisQuery } from "@/service/api";
 import {
   Bar,
   BarChart,
